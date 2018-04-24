@@ -1,19 +1,15 @@
 //
-// server.js
+// A basic NodeJS Server //TypicalDoofus\\
 //
-let http = require('http');
+let express = require('express');
+let app = express();
 
 const port = process.env.PORT || 3000;
 
-http.createServer(function (request, response){
-	console.log('Er was een request');
-	response.writeHead(200, {'Content-Type': 'application/json'});
-	let result = {
-		firstname: 'Robin',
-		lastname: "Schellius"
-	};
-	response.write(JSON.stringify(result));
-	response.end();
-}).listen(port);
+app.get('/', function (req, res) {
+    res.send('TypicalDoofus');
+});
 
-console.log('De server luistert op port ' + port);
+app.listen(port, () => {
+    console.log('The server is running on port ' + port)
+});

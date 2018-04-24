@@ -1,24 +1,30 @@
 {
   "name": "les-2",
   "version": "1.0.0",
-  "description": "Eerste node server",
+  "description": "First node server",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rschellius/programmeren4-nodeserver.git"
+    "url": "git+https://github.com/rickhamers/programmeren4-nodeserver.git"
   },
   "keywords": [
     "node",
     "server"
   ],
-  "author": "Robin",
+  "author": "TypicalDoofus",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rschellius/programmeren4-nodeserver/issues"
+    "url": "https://github.com/RickHamers/programmeren4-nodeserver/issues"
   },
-  "homepage": "https://github.com/rschellius/programmeren4-nodeserver#readme"
+  "homepage": "https://github.com/RickHamers/programmeren4-nodeserver#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
 }
