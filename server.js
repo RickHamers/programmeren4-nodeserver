@@ -82,12 +82,12 @@ app.delete('/api/person/:number', (req, res) => {
     console.log('---------------A DELETE request was made---------------');
 
     console.log(req.body); //Printing the POST request's body
-    const number = req.params.number; //Requesting firstname from the client
+    const number = req.params.number; //Getting the number from the end of the URL
 
-    personList.splice(number,1); // adding the postPerson to the personList
+    personList.splice(number,1); //Removing the user from the personList Array
 
     //response to the DELETE request
-    res.status(200).json(personList).end();//Response to the POST request
+    res.status(200).json(personList).end();//Response to the DELETE request
 });
 
 //No endpoint found
