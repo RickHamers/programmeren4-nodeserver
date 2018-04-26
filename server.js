@@ -63,7 +63,7 @@ app.get('/api/person/:id', (req, res, next) => {
 });
 
 //The POST request
-app.post('/api/person', (req, res) => {
+app.post('/api/person', (req, res, next) => {
     console.log('---------------A POST request was made---------------');
 
     console.log(req.body); //Printing the POST request's body
@@ -78,13 +78,13 @@ app.post('/api/person', (req, res) => {
 });
 
 //The DELETE request
-app.delete('/api/person/:number', (req, res) => {
+app.delete('/api/person/:number', (req, res, next) => {
     console.log('---------------A DELETE request was made---------------');
 
-    console.log(req.body); //Printing the POST request's body
+    console.log(req.body); //Printing the DELETE request's body
     const number = req.params.number; //Getting the number from the end of the URL
 
-    personList.splice(number,1); //Removing the user from the personList Array
+    personList.splice(1,number); //Removing an amount of persons from the personList Array
 
     //response to the DELETE request
     res.status(200).json(personList).end();//Response to the DELETE request
