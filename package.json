@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rickhamers/programmeren4-nodeserver.git"
+    "url": "git+https://github.com/RickHamers/programmeren4-nodeserver.git"
   },
   "keywords": [
     "node",
@@ -22,7 +22,9 @@
   },
   "homepage": "https://github.com/RickHamers/programmeren4-nodeserver#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.3"
