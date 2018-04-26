@@ -83,7 +83,6 @@ app.delete('/api/person/:number', (req, res, next) => {
 
     console.log(req.body); //Printing the DELETE request's body
     const number = req.params.number; //Getting the number from the end of the URL
-
     personList.splice(1,number); //Removing an amount of persons from the personList Array
 
     //response to the DELETE request
