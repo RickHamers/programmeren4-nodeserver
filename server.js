@@ -6,8 +6,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyparser = require('body-parser');
-//Importing the person.js class
-const person = require('./domain/person');
+
+//Importing the other classes
+const person_routes = require('./routes/person-routes.js');
 
 //Initializing the Express module
 const app = express();
@@ -19,75 +20,16 @@ const port = process.env.PORT || 3000;
 app.use(morgan('dev'));
 app.use(bodyparser.json());
 
-//Making a personList Array
-let personList = [];
-
 //Parsing the request
 app.use('*', (req, res, next) => {
     let httpMethod = req.method;
     let requestUrl = req.baseUrl;
     console.log('We received a ' + httpMethod + ' request at ' + requestUrl);
 
-
     next();
 });
 
-//The GET personList request
-app.get('/api/person', (req, res) => {
-    console.log('---------------A GET request was made---------------');
-
-    const newPerson = new person('Typical', 'Doofus'); //Making a new Person object
-
-    res.status(200).json(personList).end(); //Response to the GET request
-});
-
-//The GET person request
-app.get('/api/person/:id', (req, res, next) => {
-    console.log('---------------A GET request was made---------------');
-
-    const id = req.params.id;  //Requesting the ID for the person object
-
-    if (id >= 0 && id < personList.length){
-        //The ID is correct - Send the person back
-        res.status(200).json(personList).end(); //Response to the GET request
-    } else {
-        //The ID is not correct - Error
-        const error = {
-            error: 'ID does not exist (index out of bounds)',
-            url: req.baseUrl,
-            statuscode: 404
-        };
-        next(error);
-    }
-
-});
-
-//The POST request
-app.post('/api/person', (req, res, next) => {
-    console.log('---------------A POST request was made---------------');
-
-    console.log(req.body); //Printing the POST request's body
-    const firstname = req.body.firstname; //Requesting firstname from the client
-    const lastname = req.body.lastname; //Requesting lastname from the client
-
-    const postPerson = new person(firstname, lastname); //Making a new person using the posted firstname and lastname
-    personList.push(postPerson); // adding the postPerson to the personList
-
-    //response to the POST request
-    res.status(200).json(postPerson).end();//Response to the POST request
-});
-
-//The DELETE request
-app.delete('/api/person/:number', (req, res, next) => {
-    console.log('---------------A DELETE request was made---------------');
-
-    console.log(req.body); //Printing the DELETE request's body
-    const number = req.params.number; //Getting the number from the end of the URL
-    personList.splice(1,number); //Removing an amount of persons from the personList Array
-
-    //response to the DELETE request
-    res.status(200).json(personList).end();//Response to the DELETE request
-});
+app.use('/api', person_routes);
 
 //No endpoint found
 app.use('*', (req, res, next) => {
@@ -95,22 +37,25 @@ app.use('*', (req, res, next) => {
     let requestUrl = req.baseUrl;
     console.log('We received a ' + httpMethod + ' request at ' + requestUrl);
 
-    //Creating a response for error 404 : Page not found
-    const error = {
-        error: 'Endpoint does not exist',
-        url: requestUrl
-    };
+
     //Sending error info to Final error Handler
-    next(error);
+    next('Endpoint does not exist');
 });
 
 // Final error handler for Next(Info);
 app.use((err,req,res,next) => {
     console.log('Final error handler: an error occurred');
-    console.log(err);
+    console.log(err.toString());
+    let requestUrl = req.baseUrl;
+
+    //Creating a response for errors
+    const error = {
+        error: err.toString(),
+        url: requestUrl
+    };
 
     //Responding to the error
-    res.status(500).json(err).end();
+    res.status(500).json(error).end();
 });
 
 //Starting the server

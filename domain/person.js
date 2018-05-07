@@ -1,3 +1,7 @@
+// _-//TypicalDoofus\\-_
+// Person class
+//
+
 class Person {
 
     //Consttructor for person
